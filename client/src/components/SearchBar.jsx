@@ -1,6 +1,9 @@
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
     return (
-        <div></div>
+        <div>
+            <input type='search' />
+            <button onClick={onSearch}>Agregar</button>
+        </div>
     )
 };
 
