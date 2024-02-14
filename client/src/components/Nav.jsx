@@ -1,9 +1,9 @@
 import SearchBar from './SearchBar';
 
-const Nav = () => {
+const Nav = ({ onSearch }) => {
     return (
         <div>
-            <SearchBar onSearch={(characterID) => window.alert(characterID)} />
+            <SearchBar onSearch={onSearch} />
         </div>
     )
 };
