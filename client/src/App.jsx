@@ -2,6 +2,7 @@ import Nav from './components/Nav';
 import Cards from './components/Cards';
 import { useState } from 'react';
 import axios from 'axios';
+import { Routes, Route } from 'react-router-dom';
 
 import './App.css';
 
