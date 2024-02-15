@@ -1,5 +1,7 @@
 import Nav from './components/Nav';
 import Cards from './components/Cards';
+import About from './components/About';
+import Detail from './components/Detail';
 import { useState } from 'react';
 import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
@@ -53,7 +55,12 @@ const App = () => {
   return (
     <div className='App'>
       <Nav onSearch={onSearch} onAddRandom={onAddRandom} />
-      <Cards characters={characters} onClose={onClose} />
+
+      <Routes>
+        <Route path='/home' element={ <Cards characters={characters} onClose={onClose} /> } />
+        <Route path='/about' element={ <About /> } />
+        <Route path='/detail/:id' element={ <Detail /> } />
+      </Routes>
     </div>
   )
 };
