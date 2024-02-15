@@ -1,7 +1,41 @@
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
 const Detail = () => {
+
+    const { id } = useParams();  // Obtenemos el ID que llega por Params.
+
+    const [character, setCharacter] = useState({});
+
+    useEffect(() => {
+        axios(`https://rym2.up.railway.app/api/character/${id}?key=pi-matireyna`)  // Actializa el ID segun la dependencia.
+            .then(({ data }) => {
+                if (data.name) {
+                    setCharacter(data)
+                } else {
+                    window.alert('No hay personajes con ese ID')
+                }
+            }
+        )
+        return setCharacter({});
+    }, [id]);  // Al estar en el arreglo de dependencia quiere decir a que va a estar atento a cambios.
+
     return (
-        <div></div>
+        <div>
+            <h1>{character.name && character.name}</h1>
+            <br />
+            <h2>STATUS | {character.status && character.status}</h2>
+            <h2>GENDER | {character.gender && character.gender}</h2>
+            <h2>SPECIE | {character.species && character.species}</h2>
+            <h2>ORIGIN | {character.origin?.name && character.origin?.name}</h2>
+            <h2>LOCATION | {character.location?.name && character.location?.name}</h2>
+            <img src={character.image && character.image} alt={character.name} />
+        </div>
     )
 };
 
 export default Detail;
+
+// Hacemos un condicional para que React no se estrese.
+// Lo que le decimos es que busque tranquilo y cuando tenga la información que la muestre.

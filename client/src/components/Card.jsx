@@ -5,7 +5,7 @@ const Card = ({ id, name, status, species, gender, origin, image, onClose }) => 
         <div>
             <button onClick={() => { onClose(id) }}>X</button>
 
-            <Link to='/detail/:id'>
+            <Link to={`/detail/${id}`}>
                 <h2>{name}</h2>
             </Link>
 
