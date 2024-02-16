@@ -8,10 +8,16 @@ const SearchBar = ({ onSearch }) => {
         setId(event.target.value)
     };  // Setea el estado local con lo que se escriba en el input.
 
+    const handleSearch = () => {
+        onSearch(id)  // Invoca la función onSearch con el ID actual.
+        setId('')  // Limpia el valor del input.
+    };
+
     return (
         <div>
             <input type='search' value={id} onChange={handleChange} placeholder='El ID del personaje...' />
-            <button onClick={() => { onSearch(id) }}>Agregar</button>
+            {/* <button onClick={() => { onSearch(id) }}>Agregar</button> */}
+            <button onClick={handleSearch}>Agregar</button>
         </div>
     )
 };
