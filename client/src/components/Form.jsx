@@ -3,11 +3,15 @@ const Form = () => {
         <div>
             <form>
                 <label>EMAIL</label>
-                <input></input>
-                
-                <label>PASSWORD</label>
-                <input></input>
+                <input type='text' name='email' placeholder='Registre su email' />
 
+                <br />
+
+                <label>PASSWORD</label>
+                <input type='password' name='password' />
+
+                <br />
+                
                 <button>SUBMIT</button>
             </form>
         </div>

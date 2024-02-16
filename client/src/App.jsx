@@ -2,13 +2,16 @@ import Nav from './components/Nav';
 import Cards from './components/Cards';
 import About from './components/About';
 import Detail from './components/Detail';
+import Form from './components/Form';
 import { useState } from 'react';
 import axios from 'axios';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 import './App.css';
 
 const App = () => {
+
+  const { pathname } = useLocation();  // Con esto saco donde el usuario esta parado.
 
   const [ characters, setCharacters ] = useState([]);  // Creación de un estado local.
 
@@ -54,9 +57,11 @@ const App = () => {
 
   return (
     <div className='App'>
-      <Nav onSearch={onSearch} onAddRandom={onAddRandom} />
+
+      { pathname !== '/' && <Nav onSearch={onSearch} onAddRandom={onAddRandom} /> }
 
       <Routes>
+        <Route path='/' element={ <Form /> } />
         <Route path='/home' element={ <Cards characters={characters} onClose={onClose} /> } />
         <Route path='/about' element={ <About /> } />
         <Route path='/detail/:id' element={ <Detail /> } />
