@@ -25,7 +25,14 @@ const App = () => {
     if (userData.password === PASSWORD && userData.email === EMAIL) {  // Si los datos ingresados son correctos...
       setAccess(true)  // Le da permiso a acceder a la página.
       navigate('/home')  // Y lo lleva al home.
+    } else {
+      window.alert('Credenciales incorrectas. Por favor, inténtelo de nuevo.')
     }
+  };
+
+  const logout = () => {
+    setAccess(false)
+    navigate('/')
   };
 
   useEffect(() => {
@@ -75,7 +82,7 @@ const App = () => {
   return (
     <div className='App'>
 
-      { pathname !== '/' && <Nav onSearch={onSearch} onAddRandom={onAddRandom} /> }
+      { pathname !== '/' && <Nav onSearch={onSearch} onAddRandom={onAddRandom} logout={logout} /> }
 
       <Routes>
         <Route path='/' element={ <Form login={login} /> } />

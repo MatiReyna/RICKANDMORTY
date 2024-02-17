@@ -32,7 +32,7 @@ const Form = ({ login }) => {
     return (
         <div>
             <form onSubmit={handleSubmit}>
-                <label>EMAIL</label>
+                <label htmlFor='email'>EMAIL</label>
                 <input type='text' name='email' value={userData.email} onChange={handleChange} placeholder='Registre su email' />
                 { errors.invalidEmail ? <p>{errors.invalidEmail}</p> 
                  : errors.emptyEmail ? <p>{errors.emptyEmail}</p>
@@ -41,7 +41,7 @@ const Form = ({ login }) => {
 
                 <br />
 
-                <label>PASSWORD</label>
+                <label htmlFor='password'>PASSWORD</label>
                 <input type='password' name='password' value={userData.password} onChange={handleChange} />
                 { errors.containsNumber ? <p>{errors.containsNumber}</p> : <p>{errors.longPassword}</p> }
 
