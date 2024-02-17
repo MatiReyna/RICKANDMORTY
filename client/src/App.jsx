@@ -71,3 +71,6 @@ const App = () => {
 };
 
 export default App;
+
+// Lo que hacemos con ese pathname es ver donde estaubicado el usuario.
+// Si es diferente a '/' osea que es true se muestra el Nav.
