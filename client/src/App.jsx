@@ -3,9 +3,9 @@ import Cards from './components/Cards';
 import About from './components/About';
 import Detail from './components/Detail';
 import Form from './components/Form';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import './App.css';
 
@@ -14,6 +14,23 @@ const App = () => {
   const { pathname } = useLocation();  // Con esto saco donde el usuario esta parado.
 
   const [ characters, setCharacters ] = useState([]);  // Creación de un estado local.
+
+  const navigate = useNavigate();
+  const EMAIL = 'matiireyna@hotmail.com';
+  const PASSWORD = 'hola123';
+
+  const [ access, setAccess ] = useState(false);  // Estado local para ingresar a la página.
+
+  const login = (userData) => {
+    if (userData.password === PASSWORD && userData.email === EMAIL) {  // Si los datos ingresados son correctos...
+      setAccess(true)  // Le da permiso a acceder a la página.
+      navigate('/home')  // Y lo lleva al home.
+    }
+  };
+
+  useEffect(() => {
+    !access && navigate('/')  // Cuando se monte y no tengo el estado local, se muestra el Form.
+  }, [access]);
 
   const onSearch = (id) => {  // Funcion que trae personajes de la API.
 
@@ -61,7 +78,7 @@ const App = () => {
       { pathname !== '/' && <Nav onSearch={onSearch} onAddRandom={onAddRandom} /> }
 
       <Routes>
-        <Route path='/' element={ <Form /> } />
+        <Route path='/' element={ <Form login={login} /> } />
         <Route path='/home' element={ <Cards characters={characters} onClose={onClose} /> } />
         <Route path='/about' element={ <About /> } />
         <Route path='/detail/:id' element={ <Detail /> } />

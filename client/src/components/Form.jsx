@@ -1,7 +1,7 @@
 import validation from '../validation';
 import { useState } from 'react';
 
-const Form = () => {
+const Form = ({ login }) => {
 
     const [ userData, setUserData ] = useState({
         email: '',
@@ -24,9 +24,14 @@ const Form = () => {
         )
     };
 
+    const handleSubmit = (event) => {
+        event.preventDefault()
+        login(userData)
+    };
+
     return (
         <div>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label>EMAIL</label>
                 <input type='text' name='email' value={userData.email} onChange={handleChange} placeholder='Registre su email' />
                 { errors.invalidEmail ? <p>{errors.invalidEmail}</p> 
@@ -42,7 +47,7 @@ const Form = () => {
 
                 <br />
 
-                <button>SUBMIT</button>
+                <button type='submit'>SUBMIT</button>
             </form>
         </div>
     )
