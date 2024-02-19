@@ -1,6 +1,8 @@
 import validation from '../validation';
 import { useState } from 'react';
 
+import styles from './styles/Form.module.css'
+
 const Form = ({ login }) => {
 
     const [ userData, setUserData ] = useState({
@@ -30,24 +32,24 @@ const Form = ({ login }) => {
     };
 
     return (
-        <div>
+        <div className={styles.formContainer}>
             <form onSubmit={handleSubmit}>
-                <label htmlFor='email'>EMAIL</label>
-                <input type='text' name='email' value={userData.email} onChange={handleChange} placeholder='Registre su email' />
-                { errors.invalidEmail ? <p>{errors.invalidEmail}</p> 
-                 : errors.emptyEmail ? <p>{errors.emptyEmail}</p>
-                 : <p>{errors.longEmail}</p> 
+                <label htmlFor='email' className={styles.formLabel}>EMAIL</label>
+                <input type='text' name='email' value={userData.email} onChange={handleChange} className={styles.formInput} placeholder='Registre su email' />
+                { errors.invalidEmail ? <p className={styles.errorMessage}>{errors.invalidEmail}</p> 
+                 : errors.emptyEmail ? <p className={styles.errorMessage}>{errors.emptyEmail}</p>
+                 : <p className={styles.errorMessage}>{errors.longEmail}</p> 
                 }
 
                 <br />
 
-                <label htmlFor='password'>PASSWORD</label>
-                <input type='password' name='password' value={userData.password} onChange={handleChange} />
-                { errors.containsNumber ? <p>{errors.containsNumber}</p> : <p>{errors.longPassword}</p> }
+                <label htmlFor='password' className={styles.formLabel}>PASSWORD</label>
+                <input type='password' name='password' value={userData.password} onChange={handleChange} className={styles.formInput} />
+                { errors.containsNumber ? <p className={styles.errorMessage}>{errors.containsNumber}</p> : <p className={styles.errorMessage}>{errors.longPassword}</p> }
 
                 <br />
 
-                <button type='submit'>SUBMIT</button>
+                <button type='submit' className={styles.formButton}>SUBMIT</button>
             </form>
         </div>
     )
