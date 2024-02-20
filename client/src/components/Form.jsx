@@ -1,5 +1,5 @@
 import validation from '../validation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import styles from './styles/Form.module.css'
 
@@ -10,7 +10,11 @@ const Form = ({ login }) => {
         password: ''
     });
 
-    const [ errors, setErrors ] = useState({});  // Estado para encontrar errores en el formulario.
+    const [ errors, setErrors ] = useState(validation(userData));  // Estado para encontrar errores en el formulario.
+
+    useEffect(() => {
+        setErrors(validation(userData))  // Validacion cada vez que userData cambie.
+    }, [userData])
 
     const handleChange = (event) => {
         setUserData({
@@ -18,12 +22,12 @@ const Form = ({ login }) => {
             [ event.target.name ]: event.target.value
         })  // Agarra el input que le estan escribiendo y le pone el valor que se escribe.
 
-        setErrors(
-            validation({  // Ejecuta las validaciones con lo que el usuario va escribiendo.
-                ...userData,
-                [ event.target.name ]: event.target.value
-            })
-        )
+        // setErrors(
+        //     validation({  // Ejecuta las validaciones con lo que el usuario va escribiendo.
+        //         ...userData,
+        //         [ event.target.name ]: event.target.value
+        //     })
+        // )
     };
 
     const handleSubmit = (event) => {
@@ -35,7 +39,7 @@ const Form = ({ login }) => {
         <div className={styles.formContainer}>
             <form onSubmit={handleSubmit}>
                 <label htmlFor='email' className={styles.formLabel}>EMAIL</label>
-                <input type='text' name='email' value={userData.email} onChange={handleChange} className={styles.formInput} placeholder='Registre su email' />
+                <input type='text' name='email' value={userData.email} onChange={handleChange} className={styles.formInput} placeholder='Correo electrónico' />
                 { errors.invalidEmail ? <p className={styles.errorMessage}>{errors.invalidEmail}</p> 
                  : errors.emptyEmail ? <p className={styles.errorMessage}>{errors.emptyEmail}</p>
                  : <p className={styles.errorMessage}>{errors.longEmail}</p> 
@@ -44,7 +48,7 @@ const Form = ({ login }) => {
                 <br />
 
                 <label htmlFor='password' className={styles.formLabel}>PASSWORD</label>
-                <input type='password' name='password' value={userData.password} onChange={handleChange} className={styles.formInput} />
+                <input type='password' name='password' value={userData.password} onChange={handleChange} className={styles.formInput} placeholder='Contraseña' />
                 { errors.containsNumber ? <p className={styles.errorMessage}>{errors.containsNumber}</p> : <p className={styles.errorMessage}>{errors.longPassword}</p> }
 
                 <br />

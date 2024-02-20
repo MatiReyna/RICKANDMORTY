@@ -3,23 +3,23 @@ const validation = (data) => {  // Recibe la 'data' osea lo que tiene que valida
     let errors = {};
 
     if (!data.email.includes('@')) {
-        errors.invalidEmail = 'Ingrese un email valido'
+        errors.invalidEmail = 'INGRESE UN EMAIL VALIDO'
     }
 
     if (!data.email) {
-        errors.emptyEmail = 'Ingrese un email'
+        errors.emptyEmail = 'INGRESE UN EMAIL'
     }
 
     if (data.email.length > 35) {
-        errors.longEmail = 'El email debe ser mas corto'
+        errors.longEmail = 'EL EMAIL DEBE SER MAS CORTO'
     }
 
     if (!/\d/.test(data.password)) {  // Para verificar que contenga un número.
-        errors.containsNumber = 'La password debe contener al menos un número'
+        errors.containsNumber = 'LA PASSWORD DEBE CONTENER AL MENOS UN NÚMERO'
     }
 
     if (data.password.length < 6 || data.password.length > 10) {
-        errors.longPassword = 'La password debe ser una longitud de 6 a 10 caracteres'
+        errors.longPassword = 'LA PASSWORD DEBE SER DE UNA LONGITUD DE 6 A 10 CARACTERES'
     }
 
     return errors;
