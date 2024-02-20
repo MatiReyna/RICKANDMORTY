@@ -3,6 +3,7 @@ import Cards from './components/Cards';
 import About from './components/About';
 import Detail from './components/Detail';
 import Form from './components/Form';
+import Favorites from './components/Favorites';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
@@ -59,7 +60,7 @@ const App = () => {
   };
 
   const onAddRandom = () => {  // Agrega un personaje random.
-    const randomId = Math.floor(Math.random() * 1000) + 1  // Genera un ID aleatorio.
+    const randomId = Math.floor(Math.random() * 826) + 1  // Genera un ID aleatorio.
     axios(`https://rym2.up.railway.app/api/character/${randomId}?key=pi-matireyna`)
       .then(({ data }) => {
         if (data.name) {
@@ -89,6 +90,7 @@ const App = () => {
         <Route path='/home' element={ <Cards characters={characters} onClose={onClose} /> } />
         <Route path='/about' element={ <About /> } />
         <Route path='/detail/:id' element={ <Detail /> } />
+        <Route path='/favorites' element={ <Favorites /> } />
       </Routes>
     </div>
   )

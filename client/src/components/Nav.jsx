@@ -15,6 +15,10 @@ const Nav = ({ onSearch, onAddRandom, logout }) => {
                 <button>Home</button>
             </Link>
 
+            <Link to='/favorites'>
+                <button>Favorites</button>
+            </Link>
+
             <button onClick={logout}>Log out</button>
         </div>
     )
