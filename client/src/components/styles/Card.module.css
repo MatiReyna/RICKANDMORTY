@@ -1,0 +1,44 @@
+.cardContainer {
+    height: 100vh;
+    max-width: 1200px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 10px;
+    transition: 300ms;
+}
+
+/* .personaje {
+    height: 350px;
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+    background-color: aqua;
+    transition: 300ms;
+    position: absolute;
+} */
+
+/* .image {
+    height: 350px;
+    width: 200px;
+    background-size: cover;
+    margin-bottom: 200px;
+    transition: 300ms;
+    filter: drop-shadow(5px -4px 10px #000);
+} */
+
+/* .detail {
+    height: 200px;
+    width: 300px;
+    background-color: aliceblue;
+    position: absolute;
+    border-bottom-left-radius: 10%;
+    border-top-right-radius: 10%;
+    margin-top: 150px;
+    z-index: 2;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+    transition: 300ms;
+} */
