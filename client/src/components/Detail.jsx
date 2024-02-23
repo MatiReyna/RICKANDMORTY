@@ -9,7 +9,7 @@ const Detail = () => {
     const [character, setCharacter] = useState({});
 
     useEffect(() => {
-        axios(`https://rym2.up.railway.app/api/character/${id}?key=pi-matireyna`)  // Actializa el ID segun la dependencia.
+        axios(`http://localhost:3001/rickandmorty/character/${id}`)  // Actializa el ID segun la dependencia.
             .then(({ data }) => {
                 if (data.name) {
                     setCharacter(data)
@@ -29,7 +29,6 @@ const Detail = () => {
             <h2>GENDER | {character.gender && character.gender}</h2>
             <h2>SPECIE | {character.species && character.species}</h2>
             <h2>ORIGIN | {character.origin?.name && character.origin?.name}</h2>
-            <h2>LOCATION | {character.location?.name && character.location?.name}</h2>
             <img src={character.image && character.image} alt={character.name} />
         </div>
     )

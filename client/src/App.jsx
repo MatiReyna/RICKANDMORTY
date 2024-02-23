@@ -48,7 +48,7 @@ const App = () => {
       return  // Corta la ejecucion y no agrega el repetido.
     };  // Verifica si el personaje ya se esta mostrando antes de buscarlo.
 
-    axios(`https://rym2.up.railway.app/api/character/${id}?key=pi-matireyna`)
+    axios(`http://localhost:3001/rickandmorty/character/${id}`)
       .then(({ data }) => {
         if (data.name) {
           setCharacters((oldChars) => [ ...oldChars, data ])
