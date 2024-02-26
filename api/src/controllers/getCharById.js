@@ -18,6 +18,6 @@ const getCharById = (res, id) => {
     .catch((error) => res.writeHead(500, { 'Content=type': 'text/plain' }).end(error.message))
 };
 
-modules.export = {
+module.exports = {
     getCharById
 }
