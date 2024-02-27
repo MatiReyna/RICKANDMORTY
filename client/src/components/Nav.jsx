@@ -1,25 +1,34 @@
 import SearchBar from './SearchBar';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+
+import styles from './styles/Nav.module.css';
 
 const Nav = ({ onSearch, onAddRandom, logout }) => {
+
+    const location = useLocation();
+
     return (
-        <div>
+        <div className={styles.navContainer}>
             <SearchBar onSearch={onSearch} />
-            <button onClick={onAddRandom}>RANDOM</button>
-            
-            <Link to='/about'>
-                <button>About</button>
-            </Link>
+            <div className={styles.navButtons}>
+                <button onClick={onAddRandom}>RANDOM</button>
+            </div>
+            <div className={styles.navLinks}>
+                <Link to='/about' className={location.pathname === '/about' ? styles.activeLink : ''}>
+                    <button>About</button>
+                </Link>
 
-            <Link to='/home'>
-                <button>Home</button>
-            </Link>
+                <Link to='/home' className={location.pathname === '/home' ? styles.activeLink : ''}>
+                    <button>Home</button>
+                </Link>
 
-            <Link to='/favorites'>
-                <button>Favorites</button>
-            </Link>
-
-            <button onClick={logout}>Log out</button>
+                <Link to='/favorites' className={location.pathname === '/favorites' ? styles.activeLink : ''}>
+                    <button>Favorites</button>
+                </Link>
+            </div>
+            <div className={styles.navButtons}>
+                <button onClick={logout}>Log out</button>
+            </div>
         </div>
     )
 };

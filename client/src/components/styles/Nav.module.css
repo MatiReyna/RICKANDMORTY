@@ -1,0 +1,50 @@
+.navContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #f8f9fa;
+    width: 100%;
+    top: 0;
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+}
+
+.navLinks button {
+    margin-left: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.navLinks button:hover {
+    color: #70e000;
+}
+
+.activeLink button {
+    font-weight: bold;
+    color: #70e000;
+}
+
+.navButtons button {
+    border-radius: 120px;
+    border: 2px solid #023047;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 100;
+    font-family: 'Kode Mono', monospace;
+    cursor: pointer;
+    transition: border-color 0.25s;
+    background-color: #edede9;
+}
+
+.navButtons button:hover {
+    border-color: #70e000;
+}

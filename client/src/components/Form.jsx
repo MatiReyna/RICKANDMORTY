@@ -10,7 +10,7 @@ const Form = ({ login }) => {
         password: ''
     });
 
-    const [ errors, setErrors ] = useState(validation(userData));  // Estado para encontrar errores en el formulario.
+    const [ errors, setErrors ] = useState({});  // Estado para encontrar errores en el formulario.
 
     useEffect(() => {
         setErrors(validation(userData))  // Validacion cada vez que userData cambie.
@@ -21,18 +21,17 @@ const Form = ({ login }) => {
             ...userData,
             [ event.target.name ]: event.target.value
         })  // Agarra el input que le estan escribiendo y le pone el valor que se escribe.
-
-        setErrors(
-            validation({  // Ejecuta las validaciones con lo que el usuario va escribiendo.
-                ...userData,
-                [ event.target.name ]: event.target.value
-            })
-        )
     };
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        login(userData)
+        const formErrors = validation(userData)
+
+        if (Object.keys(formErrors).length === 0) {
+            login(userData)
+        } else {
+            setErrors(formErrors)
+        }
     };
 
     return (
@@ -46,10 +45,6 @@ const Form = ({ login }) => {
                             <input type='text' name='email' value={userData.email} onChange={handleChange} className={styles.formInput} />
                             <label htmlFor='email'>EMAIL</label>
                         </div>
-                        {/* {errors.invalidEmail ? <p className={styles.errorMessage}>{errors.invalidEmail}</p>
-                            : errors.emptyEmail ? <p className={styles.errorMessage}>{errors.emptyEmail}</p>
-                                : <p className={styles.errorMessage}>{errors.longEmail}</p>
-                        } */}
 
                         <br />
 
@@ -58,7 +53,6 @@ const Form = ({ login }) => {
                             <input type='password' name='password' value={userData.password} onChange={handleChange} className={styles.formInput} />
                             <label htmlFor='password'>PASSWORD</label>
                         </div>
-                        {/* { errors.containsNumber ? <p className={styles.errorMessage}>{errors.containsNumber}</p> : <p className={styles.errorMessage }>{errors.longPassword}</p>} */}
 
                         <br />
 
