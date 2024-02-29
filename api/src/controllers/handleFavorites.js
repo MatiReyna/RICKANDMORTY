@@ -11,7 +11,7 @@ const deleteFav = (req, res) => {
     const { id } = req.params;
 
     if (myFavorites) {
-        myFavorites = myFavorites.filter(f => f.id !== Number(id));
+        myFavorites = myFavorites.filter(f => f.id !== id);
         return res.status(200).json(myFavorites);  // Hacemos que se pise.
     } else {
         return res.status(404).json({ error: 'No favorites found' });
