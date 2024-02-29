@@ -14,7 +14,8 @@ const reducer = (state = initialState, action) => {
         case 'REMOVE_FAV':
             return {
                 ...state,
-                myFavorites: payload
+                myFavorites: action.payload,
+                allCharacters: action.payload
             }
         case 'FILTER':
             const genderToFilter = action.payload;  // Me quedo con el action que seria el genero a filtrar.

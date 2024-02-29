@@ -20,14 +20,18 @@ const App = () => {
 
   const [ access, setAccess ] = useState(false);  // Estado local para ingresar a la página.
 
-  const login = (userData) => {
-    const { email, password } = userData;
-    const URL = 'http://localhost:3001/rickandmorty/login/';
-    axios(URL + `?email=${email}&password=${password}`).then(({ data }) => {
+  const login = async (userData) => {
+    try {
+      const { email, password } = userData;
+      const URL = 'http://localhost:3001/rickandmorty/login/';
+
+      const { data } = await axios(URL + `?email=${email}&password=${password}`)
       const { access } = data;
       setAccess(data);
       access && navigate('/home');
-    });
+    } catch (error) {
+      console.log(error.message)
+    }
   };
 
   const logout = () => {
@@ -39,36 +43,37 @@ const App = () => {
     !access && navigate('/')  // Cuando se monte y no tengo el estado local, se muestra el Form.
   }, [access]);
 
-  const onSearch = (id) => {  // Funcion que trae personajes de la API.
+  const onSearch = async (id) => {  // Funcion que trae personajes de la API.
+    try {
+      const existingCharacter = characters.find((c) => c.id === Number(id));
+      if (existingCharacter) {
+        window.alert('El personaje ya se esta mostrando')
+        return  // Corta la ejecucion y no agrega el repetido.
+      }  // Verifica si el personaje ya se esta mostrando antes de buscarlo.
 
-    const existingCharacter = characters.find((c) => c.id === Number(id));
-    if (existingCharacter) {
-      window.alert('El personaje ya se esta mostrando')
-      return  // Corta la ejecucion y no agrega el repetido.
-    };  // Verifica si el personaje ya se esta mostrando antes de buscarlo.
-
-    axios(`http://localhost:3001/rickandmorty/character/${id}`)
-      .then(({ data }) => {
-        if (data.name) {
-          setCharacters((oldChars) => [ ...oldChars, data ])
-        } else {
-          window.alert('¡No hay personajes con ese ID!')
-        }
+      const { data } = await axios.get(`http://localhost:3001/rickandmorty/character/${id}`)
+      if (data.name) {
+        setCharacters((oldChars) => [ ...oldChars, data ])
+      } else {
+        window.alert('¡No hay personajes con ese ID!')
       }
-    )
+    } catch (error) {
+      console.log(error.message)
+    }
   };
 
-  const onAddRandom = () => {  // Agrega un personaje random.
-    const randomId = Math.floor(Math.random() * 826) + 1  // Genera un ID aleatorio.
-    axios(`https://rym2.up.railway.app/api/character/${randomId}?key=pi-matireyna`)
-      .then(({ data }) => {
-        if (data.name) {
-          setCharacters((oldChars) => [ ...oldChars, data ])
-        } else {
-          window.alert('¡No hay personajes con ese ID')
-        }
+  const onAddRandom = async () => {  // Agrega un personaje random.
+    try {
+      const randomId = Math.floor(Math.random() * 826) + 1  // Genera un ID aleatorio.
+      const { data } = await axios.get(`https://rym2.up.railway.app/api/character/${randomId}?key=pi-matireyna`)
+      if (data.name) {
+        setCharacters((oldChars) => [ ...oldChars, data ])
+      } else {
+        window.alert('¡No hay personajes con ese ID')
       }
-    )
+    } catch (error) {
+      console.log(error.message)
+    }
   };
 
   const onClose = (id) => {
