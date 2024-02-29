@@ -17,18 +17,17 @@ const App = () => {
   const [ characters, setCharacters ] = useState([]);  // Creación de un estado local.
 
   const navigate = useNavigate();
-  const EMAIL = 'matiireyna@hotmail.com';
-  const PASSWORD = 'hola123';
 
   const [ access, setAccess ] = useState(false);  // Estado local para ingresar a la página.
 
   const login = (userData) => {
-    if (userData.password === PASSWORD && userData.email === EMAIL) {  // Si los datos ingresados son correctos...
-      setAccess(true)  // Le da permiso a acceder a la página.
-      navigate('/home')  // Y lo lleva al home.
-    } else {
-      window.alert('Credenciales incorrectas. Por favor, inténtelo de nuevo.')
-    }
+    const { email, password } = userData;
+    const URL = 'http://localhost:3001/rickandmorty/login/';
+    axios(URL + `?email=${email}&password=${password}`).then(({ data }) => {
+      const { access } = data;
+      setAccess(data);
+      access && navigate('/home');
+    });
   };
 
   const logout = () => {

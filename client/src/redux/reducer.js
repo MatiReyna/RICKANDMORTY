@@ -8,14 +8,13 @@ const reducer = (state = initialState, action) => {
         case 'ADD_FAV':
             return {
                 ...state,
-                myFavorites: [ ...state.myFavorites, action.payload ],  // Para que no se pise el favorito.
-                allCharacters: [ ...state.allCharacters, action.payload ]
-            }  // Lo que da es una copia de lo que ya hay en ese arreglo mas el nuevo favorito.
+                myFavorites: action.payload,
+                allCharacters: action.payload
+            }
         case 'REMOVE_FAV':
-            const filteredFav = state.myFavorites.filter((favorite) => favorite.id !== Number(action.payload));
             return {
                 ...state,
-                myFavorites: filteredFav
+                myFavorites: payload
             }
         case 'FILTER':
             const genderToFilter = action.payload;  // Me quedo con el action que seria el genero a filtrar.
@@ -46,5 +45,4 @@ const reducer = (state = initialState, action) => {
 
 export default reducer;
 
-// En el filteredFav me estoy quedando con todos los id diferentes al que pasaron por payload.
 // En el filteredCharacters por cada character en su propiedad gender sea igual al genero pasado por payload.

@@ -20,7 +20,7 @@ const Card = ({ id, name, status, species, gender, origin, image, onClose }) => 
 
     useEffect(() => {
         myFavorites.forEach((fav) => {
-            if (fav.id === id) {
+            if (fav && fav.id === id) {
                 setIsFav(true)
             }
         })
