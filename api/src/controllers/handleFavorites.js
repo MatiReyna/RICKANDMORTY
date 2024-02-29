@@ -10,8 +10,12 @@ const postFav = (req, res) => {
 const deleteFav = (req, res) => {
     const { id } = req.params;
 
-    const myFavorite = myFavorites.filter(f => f.id !== Number(id));
-    return res.status(200).json(myFavorite);  // Hacemos que se pise.
+    if (myFavorites) {
+        myFavorites = myFavorites.filter(f => f.id !== Number(id));
+        return res.status(200).json(myFavorites);  // Hacemos que se pise.
+    } else {
+        return res.status(404).json({ error: 'No favorites found' });
+    }
 };
 
 module.exports = {
