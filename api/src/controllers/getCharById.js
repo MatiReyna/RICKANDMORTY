@@ -15,7 +15,7 @@ const getCharById = async (req, res) => {
             image: data.image,
             status: data.status
         }
-        return obj.name ? res.status(200).json(obj) : res.status(404).send('Not Found')
+        return obj.name ? res.status(200).json(obj) : res.status(500).send('Not Found')
     } catch (error) {
         res.status(500).send(error.message)
     }
