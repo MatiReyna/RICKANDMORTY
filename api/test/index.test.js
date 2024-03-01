@@ -46,4 +46,18 @@ describe('Test de RUTAS', () => {
             expect(response).toContainEqual(characterDos)
         })
     });
+
+    describe('DELETE /rickandmorty/fav/:id', () => {
+        const characterUno = { id: 1, name: 'nombreUno' }
+        const characterDos = { id: 2, name: 'nombreDos' }
+        it('Devuelve el arreglo correspondiente si no se elimina ningún personaje', async () => {
+            const response = (await agent.delete('/rickandmorty/fav/8456')).body;
+            expect(response).toContainEqual(characterUno)
+            expect(response).toContainEqual(characterDos)
+        })
+        it('Elimina correctamente al personaje que se especifica por ID', async () => {
+            const response = (await agent.delete('/rickandmorty/fav/1')).body;
+            expect(response).toContainEqual(characterUno)
+        })
+    });
 });
