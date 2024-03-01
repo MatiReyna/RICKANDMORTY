@@ -27,5 +27,23 @@ describe('Test de RUTAS', () => {
             const response = (await agent.get('/rickandmorty/login?email=matiireyna@hotmail.com&password=hola123')).body;
             expect(response.access).toEqual(true)
         })
+        it('La información de login es incorrecta', async () => {
+            const response = (await agent.get('/rickandmorty/login?email=pepito@hotmail.com&password=hola22')).body;
+            expect(response.access).toEqual(false)
+        })
+    });
+
+    describe('POST /rickandmorty/fav', () => {
+        const characterUno = { id: 1, name: 'nombreUno' }
+        const characterDos = { id: 2, name: 'nombreDos' }
+        it('Devuelve el elemento enviado por body', async () => {
+            const response = (await agent.post('/rickandmorty/fav').send(characterUno)).body;
+            expect(response).toContainEqual(characterUno)
+        })
+        it('Devuelve el previo elemento enviado y el actual', async () => {
+            const response = (await agent.post('/rickandmorty/fav').send(characterDos)).body;
+            expect(response).toContainEqual(characterUno)
+            expect(response).toContainEqual(characterDos)
+        })
     });
 });
