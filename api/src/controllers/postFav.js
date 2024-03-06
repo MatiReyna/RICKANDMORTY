@@ -10,9 +10,10 @@ const postFav = async (req, res) => {
         await Favorite.findOrCreate({ where: { name, origin, status, image, species, gender } })
 
         const allFavorites = await Favorite.findAll()
-        return res.status(200).json(allFavorites)
+        return res.status(200).json({ message: 'Favorito añadido correctamente', allFavorites })
     } catch (error) {
-        return res.status(500).send(error.message)
+        console.error('Error al crear favorito:', error);
+        return res.status(500).send('Hubo un error al crear el favorito')
     }
 };
 

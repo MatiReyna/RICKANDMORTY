@@ -7,7 +7,7 @@ describe('Test de RUTAS', () => {
         it('Responde con status: 200', async () => {
             await agent.get('/rickandmorty/character/1').expect(200);
         })
-        it('Responde un objeto con las propiedades: "id", "name", "species", "gender", "status", "origin" e "image"', async () => {
+        it('Responde un objeto con las propiedades necesarias', async () => {
             const response = (await agent.get('/rickandmorty/character/1')).body;
             expect(response).toHaveProperty('id')
             expect(response).toHaveProperty('name')
@@ -24,8 +24,8 @@ describe('Test de RUTAS', () => {
 
     describe('GET /rickandmorty/login', () => {
         it('La información de login es correcta', async () => {
-            const response = (await agent.get('/rickandmorty/login?email=matiireyna@hotmail.com&password=hola123')).body;
-            expect(response.access).toEqual(true)
+            const response = await agent.get('/rickandmorty/login?email=matiireyna@hotmail.com&password=hola123');
+            expect(response.body.access).toEqual(true)
         })
         it('La información de login es incorrecta', async () => {
             const response = (await agent.get('/rickandmorty/login?email=pepito@hotmail.com&password=hola22')).body;
@@ -34,6 +34,10 @@ describe('Test de RUTAS', () => {
     });
 
     describe('POST /rickandmorty/fav', () => {
+        afterEach(async () => {
+            await agent.delete('/rickandmorty/fav/1');
+            await agent.delete('/rickandmorty/fav/2');
+        })
         const characterUno = { id: 1, name: 'nombreUno' }
         const characterDos = { id: 2, name: 'nombreDos' }
         it('Devuelve el elemento enviado por body', async () => {
@@ -41,6 +45,7 @@ describe('Test de RUTAS', () => {
             expect(response).toContainEqual(characterUno)
         })
         it('Devuelve el previo elemento enviado y el actual', async () => {
+            await agent.post('/rickandmorty/fav').send(characterUno)
             const response = (await agent.post('/rickandmorty/fav').send(characterDos)).body;
             expect(response).toContainEqual(characterUno)
             expect(response).toContainEqual(characterDos)
@@ -56,6 +61,7 @@ describe('Test de RUTAS', () => {
             expect(response).toContainEqual(characterDos)
         })
         it('Elimina correctamente al personaje que se especifica por ID', async () => {
+            await agent.post('/rickandmorty/fav').send(characterUno)
             const response = (await agent.delete('/rickandmorty/fav/1')).body;
             expect(response).toContainEqual(characterUno)
         })
