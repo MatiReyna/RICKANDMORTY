@@ -42,17 +42,17 @@ const Favorites = () => {
                 <option value='unknown'>unknown</option>
             </select>
             {
-                myFavorites.map((character) => {
+                myFavorites.map(({ id, name, status, species, gender, origin, image }) => {
                     return (
                         <Card
-                            key={character.id}
-                            id={character.id}
-                            name={character.name}
-                            status={character.status}
-                            species={character.species}
-                            gender={character.gender}
-                            origin={character.origin.name}
-                            image={character.image}
+                            key={id}
+                            id={id}
+                            name={name}
+                            status={status}
+                            species={species}
+                            gender={gender}
+                            origin={origin}
+                            image={image}
                             onClose={() => handleRemoveFavorite(character.id)}
                         />
                     )

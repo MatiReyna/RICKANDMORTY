@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 const Detail = () => {
@@ -30,6 +30,10 @@ const Detail = () => {
             <h2>SPECIE | {character.species && character.species}</h2>
             <h2>ORIGIN | {character.origin?.name && character.origin?.name}</h2>
             <img src={character.image && character.image} alt={character.name} />
+
+            <Link to='/home'>
+                <button>Volver</button>
+            </Link>
         </div>
     )
 };
