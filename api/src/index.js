@@ -6,5 +6,5 @@ conn.sync({ force: true }).then(() => {
     console.log('Tablas sincronizadas correctamente');
     server.listen(PORT, () => { console.log(`Server raised in port: ${PORT}`) })
 }).catch(error => {
-    console.log('Error al sincronizar tablas:', error)
+    console.log('Error al sincronizar tablas:', error.message)
 });

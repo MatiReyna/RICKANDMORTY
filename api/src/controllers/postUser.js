@@ -3,18 +3,23 @@ const { User } = require('../DB_connection');
 const postUser = async (req, res) => {
     try {
         const { email, password } = req.body;
-        if (!email && !password) return res.status(400).send('Faltan datos')
 
-        const existingUser = await User.findOne({ where: { email } })  // Verificar si ya existe un usuario con el mismo correo electrónico.
+        console.log('Datos recibidos:', req.body);
+
+        if (!email || !password) {  // Verificar si los campos están presentes.
+            return res.status(400).json({ error: 'Faltan datos' });
+        } 
+
+        const existingUser = await User.findOne({ where: { email } })  // Verificar si el usuario ya existe.
         if (existingUser) {
-            return res.status(409).send('Este usuario ya existe');
+            return res.status(409).json({ error: 'Este usuario ya existe' });
         }
 
-        const newUser = await User.findOrCreate({ where: { email, password } });  // Crear un nuevo usuario.
-        return res.status(200).json(newUser)
+        const newUser = await User.create({ where: { email, password } });  // Crear un nuevo usuario.
+        return res.status(201).json({ id: newUser.id, email: newUser.email });
     } catch (error) {
         console.error('Error al crear usuario:', error);
-        return res.status(500).send('Hubo un error al crear el usuario')
+        return res.status(500).json({ error: 'Hubo un error al crear el usuario' });
     }
 };
 
