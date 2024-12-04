@@ -21,6 +21,7 @@ server.use('/rickandmorty', router);  // Rutas principales.
 server.use((err, req, res, next) => {  // Manejo de errores.
     console.error(err.stack);
     res.status(err.status || 500).json({
+        success: false,
         error: {
             message: err.message || 'Error interno del servidor'
         }
