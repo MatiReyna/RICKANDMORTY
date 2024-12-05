@@ -4,8 +4,6 @@ const postUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        console.log('Datos recibidos:', req.body);
-
         if (!email || !password) {  // Verificar si los campos están presentes.
             return res.status(400).json({ error: 'Faltan datos' });
         } 
@@ -15,7 +13,7 @@ const postUser = async (req, res) => {
             return res.status(409).json({ error: 'Este usuario ya existe' });
         }
 
-        const newUser = await User.create({ where: { email, password } });  // Crear un nuevo usuario.
+        const newUser = await User.create({ email, password });  // Crear un nuevo usuario.
         return res.status(201).json({ id: newUser.id, email: newUser.email });
     } catch (error) {
         console.error('Error al crear usuario:', error);
